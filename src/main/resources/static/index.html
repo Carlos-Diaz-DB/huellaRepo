@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" data-ng-app="poc">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ciudadano</title>
+    <link rel="stylesheet" href="assets/libs/bootstrap4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/libs/sweetalert2/css/sweetalert2.min.css">
+    <script src="assets/libs/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="assets/libs/fontAwesome/css/all.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+    <link rel="stylesheet" href="assets/libs/fontAwesome/css/all.css">
+</head>
+
+<body ng-controller="HomeControlador">
+    <nav class="navbar sticky-top navbar-dark bg-dark mb-5">
+        <a class="navbar-brand" ng-click="verHome()" href="#!/">Inicio</a>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="home" ng-show="!home">
+                    <div class="card-deck">
+                        <div class="card">
+                            <div class="card-body row justify-content-center">
+                                <h4 class="card-title">FOTOGRAFIA</h4>
+                                <a href="#!/Fotografia" ng-click="verVista()"
+                                    class="btn btn-outline-primary btn-block mx-2">Ver</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body row justify-content-center">
+                                <h4 class="card-title">SCANNER</h4>
+                                <a href="#!/Documentos" ng-click="verVista()"
+                                    class="btn btn-outline-primary btn-block mx-2">Ver</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body row justify-content-center">
+                                <h4 class="card-title">HUELLA</h4>
+                                <a href="#!/Huella" ng-click="verVista()"
+                                    class="btn btn-outline-primary btn-block mx-2">Ver</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body row justify-content-center">
+                                <h4 class="card-title">CORREO</h4>
+                                <a href="#!/Correo" ng-click="verVista()"
+                                    class="btn btn-outline-primary btn-block mx-2">Ver</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body row justify-content-center">
+                                <h4 class="card-title">CIUDADANO</h4>
+                                <a href="#!/Ciudadano" ng-click="verVista()"
+                                    class="btn btn-outline-primary btn-block mx-2">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vistas" ng-show="home">
+                    <div ng-view>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jsPDF-->
+    <script src="assets/libs/jsPDF/js/jspdf.min.js"></script>
+    <!-- AngularJS -->
+    <script src="assets/libs/AngularJS/angular.js"></script>
+    <!-- route para AngularJS -->
+    <script src="assets/libs/AngularJS/angular-route.min.js"></script>
+    <!-- Modulo AngularJS -->
+    <script src="app/modules/app.js"></script>
+    <!-- Factories AngularJS -->
+    <script src="app/factories/correoFactory.js"></script>
+    <script src="app/factories/factory.js"></script>
+    <!-- Servicio AngularJS -->
+    <script src="app/service/correoService.js"></script>
+    <script src="app/service/DocumentService.js"></script>
+    <script src="app/service/fotografiaService.js"></script>
+    <script src="app/service/huellaService.js"></script>
+    <script src="app/service/ciudadanoService.js"></script>
+    <!-- Controladores AngularJS -->
+    <script src="app/controllers/homeCtrl.js"></script>
+    <script src="app/controllers/documentosCtrl.js"></script>
+    <script src="app/controllers/huellaCtrl.js"></script>
+    <script src="app/controllers/fotografiaCtrl.js"></script>
+    <script src="app/controllers/correoCtrl.js"></script>
+    <script src="app/controllers/ciudadanoCtrl.js"></script>
+
+    <!--iubi, socket digital persona    -->
+    <script src="app/soket/comunicacion.js"></script>
+    <!-- jQuery -->
+    <script src="assets/libs/jQuery/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/libs/bootstrap4/js/bootstrap.min.js "></script>
+</body>
+
+</html>

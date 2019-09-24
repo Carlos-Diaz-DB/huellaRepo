@@ -1,0 +1,85 @@
+<div data-ng-controller="DocumentoControlador">
+    <div data-ng-show="!verListaArchivos">
+        <form name="formDocumento" data-ng-submit="submitDocumento(formDocumento.$valid)" autocomplete="off">
+            <div class="form-group">
+                <label for="opcionIdentificador">Buscar por:</label>
+                <select class="custom-select" id="opcionIdentificador" ng-model="opcionIdentificador" required>
+                    <option value="text">Nombre</option>
+                    <option value="email">Correo electronico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="correoIdenfificador">Introduce el dato a buscar</label>
+                <div class="input-group">
+                    <input type="{{opcionIdentificador}}" class="form-control" placeholder="Buscar..." aria-label=""
+                        aria-describedby="basic-addon1" id="correoIdenfificador" data-ng-model="dato" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- camvas de la foto -->
+    <div class="mb-5" data-ng-show="verAgragarArchivo">
+            <div class="video-wrap">
+                <video id="video" playsinline autoplay></video>
+            </div>
+            <a id="link"></a>
+            <button data-ng-click="canvas()" class="btn btn-primary" data-toggle="modal"
+                data-target="#exampleModal">Escanear</button>
+                <button class="btn btn-danger" data-ng-click="detenerCamara()">Cancelar</button>
+    </div>
+
+    <!-- lista de documentos -->
+    <div data-ng-show="verListaArchivos">
+        <div class="row d-flex justify-content-end">
+            <button class="btn btn-primary mb-3" ng-click="buscarOtro()">Buscar otro</button>
+            <button class="btn btn-primary mb-3 ml-1" ng-disabled="verAgragarArchivo"
+                ng-click=" agregarArchivo()">Agregar
+                Archivo</button>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Archivo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="nota in notas">
+                    <th>{{ nota.id }} </th>
+                    <td>{{ nota.titulo }}</td>
+                    <td>{{ nota.contenido }}</td>
+                    <td>
+                        <div class="btn-group btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-warning btn" ng-click="editar(nota)"><i
+                                    class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn" ng-click="eliminar(nota)"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- modal con canvas -->
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Documento</h5>
+            </div>
+            <div class="modal-body mx-auto">
+                <canvas id="canvas" width="640" height="480"></canvas>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div ng-controller="huellaCtrl">
+    <h1>Huella digital</h1>
+    <button class="btn btn-primary" ng-click="mostrarSeccion = !mostrarSeccion">Registrar huella</button>
+    <button class="btn btn-info" ng-click="">Ver huellas registradas</button>
+    <div class="w-100 p-4 m-4"></div>
+    <div class="container bg-light" ng-show="mostrarSeccion">
+        <div class="form-group">
+            <label>Introduce el id del ciudadano</label>
+            <div class="input-group">
+                <input type="number" class="form-control"
+                       placeholder="Id ciudadano"
+                       aria-describedby="basic-addon1"
+                       data-ng-model="hand.idHuella" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                    <div class="row">
+                        <div class="h1">Mano izquierda</div>
+                    </div>
+                <div class="row">
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'MeñiqueL'">Meñique</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'AnularL'">Anular</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'MedioL'">Medio</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'IndiceL'">Indica</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'PulgarL'">Pulgar</button></div>
+                </div>
+                
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="h1">Mano derecha</div>
+                </div>
+                <div class="row">
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'PulgarR'">Pulgar</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'IndiceR'">Indica</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'MedioR'">Medio</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'AnularR'">Anular</button></div>
+                    <div class="col-2"><button class="btn btn-info" ng-click="hand.nombreHuella = 'MeñiqueR'">Meñique</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-between">
+            <div class="col-8">
+                foto
+            </div>
+        </div>
+        <div class="w-100 p-4 m-4"></div>
+        <button class="btn btn-info" ng-click="agregarHuella(hand.nombreHuella)">Registrar</button>
+        <button class="btn btn-danger" ng-click="mostrarSeccion = !mostrarSeccion">CANCELAR</button>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div data-ng-controller="correoCtrl">
+    <div class="card">
+        <div class="card-body">
+            <form name="enviarCorreo" autocomplete="off" data-ng-submit=enviarCorreoForm() novalidate>
+                <h3>¿Cuantos correos desea enviar?</h3>
+                <div class="form-group">
+                    <input type="number" min="1" data-ng-model="veces">
+                </div>
+                <h3>¿A cual ciudadano lo desea enviar?</h3>
+                <div class="form-group">
+                    <select id="cbxCiudadanos" class="form-control" required data-ng-model="ciudadano">
+                        <!--<select id="cbxCiudadanos" class="selectpicker" data-style="form-control btn-default btn-outline">-->
+                        <option data-ng-repeat="ciudadano in Ciudadanos" value="{{ciudadano}}">
+                            {{ciudadano.correoElectronico}}
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+<div data-ng-show="!verListaArchivos">
+	<form name="formDocumento"
+		data-ng-submit="submitDocumento(formDocumento.$valid, datoCiudadano)"
+		autocomplete="off">
+		<div class="form-group">
+			<label for="opcionIdentificador">Buscar por:</label> <select
+				class="custom-select" id="opcionIdentificador"
+				ng-model="opcionIdentificador" required>
+				<option value="Identificador">Identificador</option>
+				<option value="Correo electronico">Correo electronico</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="correoIdenfificador">Introduce el
+				{{opcionIdentificador | lowercase}} a buscar</label>
+			<div class="input-group">
+				<input type="text" class="form-control"
+					placeholder="{{opcionIdentificador}}"
+					aria-describedby="basic-addon1" id="correoIdenfificador"
+					data-ng-model="datoCiudadano" required>
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-success">Buscar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- camvas de la foto -->
+<div class="mb-5" data-ng-show="verAgragarArchivo">
+	<div class="row justify-content-center">
+
+		<div class="video-wrap">
+			<video id="video" playsinline autoplay></video>
+		</div>
+		<a id="link"></a>
+	</div>
+	<div class="row justify-content-center">
+		<button data-ng-click="canvas()" class="btn btn-primary"
+			data-toggle="modal" data-target="#exampleModal">Escanear</button>
+		<button class="btn btn-danger" data-ng-click="detenerCamara()">Cancelar</button>
+	</div>
+</div>
+
+<!-- lista de documentos -->
+<div data-ng-show="verListaArchivos">
+	<div class="col">
+		<div class="row d-flex justify-content-between">
+
+			<h4 class="mr-5">Archivos de: {{usuario.nombre}}
+				{{usuario.apellidoPaterno}} {{usuario.apellidoMaterno}}</h4>
+			<div>
+				<button class="btn btn-danger mb-3" ng-click="buscarOtro()">Buscar
+					otro</button>
+				<button class="btn btn-success mb-3 ml-1"
+					ng-click=" agregarArchivo()">Agregar Archivo</button>
+			</div>
+		</div>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th>#</th>
+					<th>Archivo</th>
+					<th>Subido</th>
+					<th>Actualizado</th>
+					<th>Estado</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="doc in documentos" ng-class="{active: $index == 0}">
+					<th>{{ $index+1 }}</th>
+					<td>{{ doc.nombre }}</td>
+					<td>{{ doc.fechaSubido | date:'dd/MM/yyyy'}}</td>
+					<td>{{ doc.fechaActualizado | date:'dd/MM/yyyy' }}</td>
+					<td>{{ doc.status == 1 ? 'Activo':'Desactivado' }}</td>
+					<td>
+						<div class="btn-group btn-group" role="group"
+							aria-label="Basic example">
+							<div data-ng-if="doc.status == 1">
+								<button class="btn btn-warning btn"
+									ng-click="verDocumento(doc.nombre)">
+									<i class="fas fa-eye"></i></i>
+								</button>
+								<button class="btn btn-info btn"
+									ng-click="descargarDocumento(doc.nombre)">
+									<i class="fas fa-download"></i>
+								</button>
+								<button class="btn btn-warning btn"
+									ng-click="editDocumento(doc)" data-toggle="modal"
+									data-target="#modalEdit">
+									<i class="fas fa-edit"></i>
+								</button>
+								<button class="btn btn-danger btn"
+									ng-click="borrarDocumento(doc)">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+							<div data-ng-if="doc.status == 0">
+								<p class="text-danger">Documento no disponible.</p>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<!-- modal con canvas -->
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-block">
+				<h5 class="modal-title w-100 text-center" id="exampleModalLabel">Documento</h5>
+			</div>
+			<div class="modal-body mx-auto justify-content-center">
+				<h5>¿Decea guardar este archivo?</h5>
+				<canvas id="canvas" width="640" height="480"></canvas>
+				<div data-ng-show="cargando">
+					<div class="d-flex align-items-center">
+						<strong>Guardando documento, porfavor espere...</strong>
+						<div class="spinner-border text-primary ml-auto" role="status"
+							aria-hidden="true"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary"
+					data-ng-click="guardarDocumento()" ng-disabled="cargando">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal con canvas -->
+<div class="modal" id="modalEdit" tabindex="-1" role="dialog"
+	aria-labelledby="modalEdit" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-block">
+				<h5 class="modal-title w-100 text-center">Actualizar datos del
+					Documento</h5>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="nombrePDF">Nombre</label> <input type="text"
+							class="form-control" data-ng-model="pdfEdit.nombre"
+							id="nombrePDF" required>
+					</div>
+					<!--                    <div class="form-group">-->
+					<!--                        <label for="estadoPDF">Estado</label>-->
+					<!--                        <input type="text" class="form-control" data-ng-model="pdfEdit.status" id="estadoPDF">-->
+					<!--                    </div>-->
+					<div class="form-group">
+						<label for="estadoPDF">Estado</label> <select id="estadoPDF"
+							class="custom-select" data-ng-model="pdfEdit.status" required>
+							<option value="1">Activo</option>
+							<option value="0">Desactivado</option>
+						</select>
+
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary"
+					data-ng-click="actualizarDocumento(pdfNuevo)">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,115 @@
+<div data-ng-controller="ciudadanoCtrl">
+    <div class="row" data-ng-show="!ciudadano">
+        <div class="col-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>Lista de Ciudadanos</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido Paterno</th>
+                                <th scope="col">Apellido Materno</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="ciudadano in listaCiudadano">
+                                <td>{{ciudadano.idCiudadano}}</td>
+                                <td>{{ciudadano.nombre}}</td>
+                                <td>{{ciudadano.apellidoPaterno}}</td>
+                                <td>{{ciudadano.apellidoMaterno}}</td>
+                                <td>{{ciudadano.correoElectronico}}</td>
+                                <td class=" text-left">
+                                    <button type="button" class="btn btn-warning"
+                                        data-ng-click="iniciarEdicion(ciudadano);"><i class="fa fa-edit"></i>
+                                        Editar</button>
+                                    <button type="button" class="btn btn-danger"
+                                        data-ng-click="borrarCiudadano(ciudadano)"><i class="fa fa-times"></i>
+                                        Borrar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-info" data-ng-click="verSeccion();">
+                        Agregar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" data-ng-show="ciudadano">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center">Formulario de ciudadano</h3>
+                    <form name="editarCiudadanoForm" autocomplete="off"
+                        data-ng-submit="submitForm(editarCiudadanoForm.$valid)" novalidate>
+                        <div class="row">
+                            <div class="col">
+
+                                <div class="form-group">
+                                    <label for="txtTitulo">Nombre:</label>
+                                    <div class="input-group">
+                                        <input id="txtTitulo" type="text" class="form-control form-control-bold"
+                                            data-ng-maxlength="120" maxlength="120" data-ng-model="ciudadano.nombre"
+                                            placeholder="Nombre" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txtTitulo">Apellido Paterno:</label>
+                                    <div class="input-group">
+                                        <input id="txtTitulo" type="text" class="form-control form-control-bold"
+                                            data-ng-maxlength="120" maxlength="120"
+                                            data-ng-model="ciudadano.apellidoPaterno" placeholder="Apellido Paterno:"
+                                            required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTitulo">Apellido Materno:</label>
+                                    <div class="input-group">
+                                        <input id="txtTitulo" type="text" class="form-control form-control-bold"
+                                            data-ng-maxlength="120" maxlength="120"
+                                            data-ng-model="ciudadano.apellidoMaterno" placeholder="Apellido Materno:"
+                                            required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTitulo">Correo:</label>
+                                    <div class="input-group">
+                                        <input id="txtTitulo" type="text" class="form-control form-control-bold"
+                                            data-ng-maxlength="120" maxlength="120"
+                                            data-ng-model="ciudadano.correoElectronico" placeholder="Correo:"
+                                            required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                        <!--Fin panel body-->
+                        <div class="panel-footer">
+                            <div class="row" style="margin-bottom:10px">
+                                <div class="col-xs-12 text-right">
+                                    <button type="button" class="btn btn-danger" style="margin-right:10px"
+                                        data-ng-click="cancelar();"><i class="fa fa-times"></i>
+                                        Cancelar
+                                    </button>
+                                    <button type="reset" class="btn btn-warning" style="margin-right:10px"><i
+                                            class="fa fa-sync"></i> Restaurar
+                                    </button>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-send"></i>
+                                        {{ciudadano.idCiudadano?'Actualizar':'Agregar'}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

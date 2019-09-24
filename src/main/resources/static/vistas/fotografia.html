@@ -1,0 +1,93 @@
+<div ng-controller="fotografiaCtrl">
+    <!-- FORMULARIO BUSQUEDA -->
+    <div class="row justify-content-center mt-5">
+        <div ng-show="!verTabla">
+            <h2 class="mb-3">Buscar Fotografia</h2>
+            <form class="form-inline" name="formBuscar" data-ng-submit="submitBusqueda(formBuscar.$valid, correo)"
+                autocomplete="off">
+                <input type="email" class="form-control mr-2 mb-2" id="inputPassword2" placeholder="Correo de ciudadano"
+                    ng-model="correo" required>
+                <button type="submit" class="btn btn-outline-primary mb-2 btn-circle btn-lg"><i
+                        class="fas fa-search"></i></button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- WEBCAM -->
+    <div ng-show="verFoto">
+        <form class="form-inline">
+            <div class="input-group ">
+                <select class="custom-select mr-4" name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                <div class="input-groud-append">
+                    <button class="btn btn-outline-success mr-3 btn-circle btn-lg" data-toggle="modal"
+                        data-target="#exampleModalCenter" id="boton"><i class="fas fa-camera"></i></button>
+                </div>
+            </div>
+            <br>
+            <video muted="muted" id="video"></video>
+            <button class="btn btn-danger" ng-click="cancelarFoto()">Cancelar</button>
+        </form>
+    </div>
+
+    <!-- VISTA TABLA -->
+    <div class="row" ng-show="verTabla">
+        <div class="col-10 mt-3 mb-1">
+            <button ng-click="activarWebcam()" class="botones btn btn-success float-right">Tomar Fotografia</button>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">PATH</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">FECHA CREACIÓN    </th>
+                        <th scope="col">FECHA ACTUALIZACIÓN</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="foto in fotos">
+                        <td>{{ foto.id }}</td>
+                        <td>{{ foto.nombre }}</td>
+                        <td>{{ foto.path }}</td>
+                        <td>{{ foto.status }}</td>
+                        <td>{{ foto.fechaCreacion | date:'yyyy-MM-dd hh:mm:ss a'}}</td>
+                        <td>{{ foto.fechaActualizacion | date:'yyyy-MM-dd hh:mm:ss a' }} </td>
+                        <td>
+                            <div class="botones btn btn-outline-warning " ng-click="editar(foto)"> <i
+                                class="fas fa-edit"></i> </div>
+                        <div class="botones btn btn-outline-danger" ng-click="borrar(foto)"> <i class="far fa-trash-alt"></i>
+                        </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <form ng-submit="fileUpload()" method="" id="formularioSubir" enctype="multipart/form-data">
+
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body text-center">
+                        <canvas id="canvas"></canvas>
+                    </div>
+
+                    <div class="modal-footer modal-foto">
+                        <button type="button" class="btn btn-outline-danger btn-circle btn-lg" data-dismiss="modal"><i
+                                class="fas fa-times"></i></button>
+                        <button type="submit" class="btn btn-outline-success btn-circle btn-lg"><i
+                                class="fas fa-check"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
